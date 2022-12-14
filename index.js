@@ -1,17 +1,18 @@
 // ====================================
 //             Requirements
 // ====================================
-const express = require('express');
-const dotenv = require('dotenv');
-const moment = require('moment');
-const path = require('path');
+const express = require("express");
+const dotenv = require("dotenv");
+const moment = require("moment");
+const path = require("path");
+let mongoose = require("mongoose");
 
 // Routes
-const testRouter = require('./routes/testRouter');
-const mainRouter = require('./routes/mainRouter');
+const testRouter = require("./routes/testRouter");
+const mainRouter = require("./routes/mainRouter");
 
 // Project-made Modules
-const hbs = require('./views/helpers/handlebarsHelper');
+const hbs = require("./views/helpers/handlebarsHelper");
 
 // ====================================
 //             Configuration
@@ -22,14 +23,21 @@ const app = express();
 
 // dotenv
 dotenv.config({
-	path: './config/config.env', // Specifies dotenv
+	path: "./config/config.env", // Specifies dotenv
 });
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
 
 //handlebars
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.engine("handlebars", hbs.engine);
+app.set("view engine", "handlebars");
+app.set("views", "./views");
+
+// Database
+mongoose.set('strictQuery', false)
+mongoose.connect(process.env.MONGO_LOCAL_URL, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 // ====================================
 //             Middleware
@@ -55,17 +63,17 @@ const reqLog = (req, res, next) => {
 };
 
 // Static
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, "/public")));
 
 // Seperate Routes
-app.use('/test', testRouter);
-app.use('/', mainRouter);
+app.use("/test", testRouter);
+app.use("/", mainRouter);
 
 // Error handling
 app.use(async (err, req, res, next) => {
 	console.log(err);
-	res.render('main/other/errorHandler', {
-		message: 'An error has occured',
+	res.render("main/other/errorHandler", {
+		message: "An error has occured",
 		err,
 	});
 });
