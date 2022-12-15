@@ -8,7 +8,7 @@ const moment = require("moment");
 
 // Project Made Module
 const DailyProgress = require("../database/dailyProgress");
-
+const { findAddOrUpdate } = require("./helpers.js");
 // ====================================
 //             Configuration
 // ====================================
@@ -22,38 +22,24 @@ dotenv.config({
 //          Main
 //========================
 
-mainRouter.get("/add", (req, res, next) => {
+mainRouter.get(["/", "/add"], (req, res, next) => {
 	res.render("main/add");
 });
 
 mainRouter.post("/add", async (req, res, next) => {
+	// Setting up today's date
 	let dateToday = new Date().setHours(0, 0, 0, 0);
-	DailyProgress.findOne({ day: dateToday })
-		.then((data) => {
-			if (data == null) {
-				let dailyProgress = new DailyProgress({
-					day: dateToday,
-				});
-				dailyProgress
-					.save()
-					.then(() => {})
-					.catch((err) => {
-						next(err);
-					});
-				res.redirect("/add");
-			} else res.redirect("/add");
-		})
-		.catch((err) => {
-			next(err);
-		});
-	// dailyProgress
-	// 	.save()
-	// 	.then(() => {
-	// 		res.redirect("/add");
-	// 	})
-	// 	.catch((err) => {
-	// 		next(err);
-	// 	});
+
+	// Setup new data
+	let newData = {
+		day: dateToday,
+		hoursWorked: { from: req.body.from, to: req.body.to },
+	};
+
+	// Find or add today's date
+	findAddOrUpdate(newData).then(() => {
+		res.redirect("/add");
+	});
 });
 
 //========================
