@@ -25,12 +25,17 @@ dotenv.config({
 //          Main
 //========================
 
+mainRouter.get("/", (req, res, next) => {
+	DailyProgress.find().then((data) => {
+		res.send(data);
+	});
+});
+
 mainRouter.get(["/add"], (req, res, next) => {
 	res.render("main/add");
 });
 
 mainRouter.post("/add/hours", async (req, res, next) => {
-	
 	// Setting up object
 	let newData = {};
 
@@ -39,11 +44,11 @@ mainRouter.post("/add/hours", async (req, res, next) => {
 
 	// Setup new data
 	if (req.body.from && req.body.to) {
-	let from = new Date();
+		let from = new Date();
 		from.setHours(req.body.from, 0, 0, 0);
 		let to = new Date();
 		to.setHours(req.body.to, 0, 0, 0);
-		newData.hoursWorked=[]
+		newData.hoursWorked = [];
 		newData.hoursWorked.push({ from, to });
 	}
 
