@@ -32,7 +32,12 @@ mainRouter.get("/", (req, res, next) => {
 });
 
 mainRouter.get(["/add"], (req, res, next) => {
-	res.render("main/add");
+	
+	// Setting up today's date
+	dateToday = new Date().setHours(0, 0, 0, 0);
+
+	// Render
+	res.render("main/add",{dateToday});
 });
 
 mainRouter.post("/add", async (req, res, next) => {

@@ -1,2 +1,12 @@
-{{> addHours}}
-{{> addTasks}}
+<div class="card m-3">
+    <div class="card-body">
+        <h3>Timesheet of today: {{dateToday}}</h3>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {{> addHours}}
+        {{> addTasks}}
+    </div>
+</div>

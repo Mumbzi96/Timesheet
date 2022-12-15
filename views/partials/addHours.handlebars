@@ -1,13 +1,17 @@
-<form method="POST" action="/add">
+<div class="card m-3">
+    <div class="card-body">
+        <form method="POST" action="/add">
+            <div class="form-group">
 
-<label>From</label>
-<input type="number" name="from" id="from">
+                <label class="form-control-label">From</label>
+                <input  class="form-control" type="number" name="from" id="from">
 
-<label>To</label>
-<input type="number" name="to" id="to">
+                <label class="form-control-label">To</label>
+                <input class="form-control"  type="number" name="to" id="to">
+            </div>
 
-<br>
-<br>
-<input type="submit" value="Save"></button>
+                <input class="btn btn-round bg-gradient-danger btn-sm w-100 mb-0" type="submit" value="Save Time">
 
-</form>
+        </form>
+    </div>
+</div>

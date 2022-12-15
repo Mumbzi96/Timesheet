@@ -1,25 +1,47 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-	<head>
-		<meta charset='UTF-8' />
-		<meta http-equiv='X-UA-Compatible' content='IE=edge' />
-		<meta
-			name='viewport'
-			content='width=device-width, initial-scale=1, shrink-to-fit=no'
-		/>
-		<link rel='icon' type='image/png' href='' />
-		<title>Starter Express</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Timesheet</title>
+    <link rel="icon" href="">
 
-		<!-- Font Awesome Icons -->
-		<script
-			src='https://kit.fontawesome.com/d40b60d37f.js'
-			crossorigin='anonymous'
-		></script>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/d40b60d37f.js" crossorigin="anonymous"></script>
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="/assets/css/soft-ui-dashboard.css" rel="stylesheet" />
 
-	</head>
 
-	<body onload=''>
-		{{{body}}}
-	</body>
+</head>
+
+
+
+<body class="g-sidenav-show  bg-gray-100">
+    {{!-- {{> layout/sidebar}} --}}
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+
+        {{!-- {{> layout/navbar}} --}}
+
+        {{!-- <div class="container py-4"> --}}
+        <div class="container py-4">
+            {{!-- {{#if message}}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{message}}</strong>
+            </div>
+            {{/if}} --}}
+
+            {{{body}}}
+            {{!-- {{> layout/footer}} --}}
+        </div>
+    </main>
+</body>
 
 </html>
