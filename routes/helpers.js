@@ -36,7 +36,7 @@ let findAddOrUpdate = async (newData) => {
 						});
 					// if data is found, update
 				} else
-					updateProgress(data, newData)
+					updateProgress((existingData = data), newData)
 						.then((answer) => {
 							res(answer);
 						})
@@ -65,10 +65,15 @@ let saveProgress = async (newData) => {
 	});
 };
 
-let updateProgress = async (data, newData) => {
+let updateProgress = async (existingData, newData) => {
 	return new Promise((res, rej) => {
-		data.hoursWorked.push(newData.hoursWorked);
-		data
+		// if saving array of hours worked
+		if (newData.hoursWorked.length != 0) {
+			existingData.hoursWorked = existingData.hoursWorked.concat(
+				newData.hoursWorked
+			);
+		}
+		existingData
 			.save()
 			.then(() => {
 				res(true);
