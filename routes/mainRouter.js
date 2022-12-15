@@ -35,7 +35,7 @@ mainRouter.get(["/add"], (req, res, next) => {
 	res.render("main/add");
 });
 
-mainRouter.post("/add/hours", async (req, res, next) => {
+mainRouter.post("/add", async (req, res, next) => {
 	// Setting up object
 	let newData = {};
 
@@ -50,6 +50,11 @@ mainRouter.post("/add/hours", async (req, res, next) => {
 		to.setHours(req.body.to, 0, 0, 0);
 		newData.hoursWorked = [];
 		newData.hoursWorked.push({ from, to });
+	}
+
+	// Setup tasks
+	if(req.body.tasksDone){
+		newData.tasksDone = [req.body.tasksDone]
 	}
 
 	// Find or add today's date

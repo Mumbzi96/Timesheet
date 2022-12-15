@@ -68,11 +68,17 @@ let saveProgress = async (newData) => {
 let updateProgress = async (existingData, newData) => {
 	return new Promise((res, rej) => {
 		// if saving array of hours worked
-		if (newData.hoursWorked.length != 0) {
+		if (newData.hoursWorked && newData.hoursWorked.length != 0) {
 			existingData.hoursWorked = existingData.hoursWorked.concat(
 				newData.hoursWorked
 			);
 		}
+
+		// Saving tasks
+		if (newData.tasksDone && newData.tasksDone.length != 0) {
+			existingData.tasksDone = existingData.tasksDone.concat(newData.tasksDone);
+		}
+
 		existingData
 			.save()
 			.then(() => {
