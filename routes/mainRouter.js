@@ -22,7 +22,7 @@ dotenv.config({
 //          Main
 //========================
 
-mainRouter.get(["/", "/add"], (req, res, next) => {
+mainRouter.get(["/add"], (req, res, next) => {
 	res.render("main/add");
 });
 
@@ -31,9 +31,15 @@ mainRouter.post("/add", async (req, res, next) => {
 	let dateToday = new Date().setHours(0, 0, 0, 0);
 
 	// Setup new data
+	let from = new Date();
+	from.setHours(req.body.from, 0, 0, 0);
+	
+	let to = new Date();
+	to.setHours(req.body.to, 0, 0, 0);
+
 	let newData = {
 		day: dateToday,
-		hoursWorked: { from: req.body.from, to: req.body.to },
+		hoursWorked: { from, to },
 	};
 
 	// Find or add today's date
