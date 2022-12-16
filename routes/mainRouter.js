@@ -34,7 +34,7 @@ mainRouter.get("/", (req, res, next) => {
 mainRouter.get(["/add"], (req, res, next) => {
 	
 	// Setting up today's date
-	dateToday = new Date().setHours(0, 0, 0, 0);
+	dateToday = moment(new Date().setHours(0, 0, 0, 0)).format("dddd, MMMM Do YYYY");
 
 	// Render
 	res.render("main/add",{dateToday});
