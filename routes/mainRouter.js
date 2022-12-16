@@ -32,15 +32,17 @@ mainRouter.get("/", (req, res, next) => {
 });
 
 mainRouter.get(["/add"], (req, res, next) => {
-	
 	// Setting up today's date
-	dateToday = moment(new Date().setHours(0, 0, 0, 0)).format("dddd, MMMM Do YYYY");
+	dateToday = moment(new Date().setHours(8, 0, 0, 0)).format(
+		"dddd, MMMM Do YYYY"
+	);
 
 	// Render
-	res.render("main/add",{dateToday});
+	res.render("main/add", { dateToday });
 });
 
 mainRouter.post("/add", async (req, res, next) => {
+
 	// Setting up object
 	let newData = {};
 
@@ -49,17 +51,24 @@ mainRouter.post("/add", async (req, res, next) => {
 
 	// Setup new data
 	if (req.body.from && req.body.to) {
+		// Setup from
 		let from = new Date();
+		if (req.body.fromAMPM == "PM") req.body.from += 12;
 		from.setHours(req.body.from, 0, 0, 0);
+
+		// Setup to
 		let to = new Date();
+		if (req.body.toAMPM == "PM") req.body.to += 12;
 		to.setHours(req.body.to, 0, 0, 0);
+
+		// Setting time in object
 		newData.hoursWorked = [];
 		newData.hoursWorked.push({ from, to });
 	}
 
 	// Setup tasks
-	if(req.body.tasksDone){
-		newData.tasksDone = [req.body.tasksDone]
+	if (req.body.tasksDone) {
+		newData.tasksDone = [req.body.tasksDone];
 	}
 
 	// Find or add today's date
