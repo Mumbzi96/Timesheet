@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="table-responsive">
+        <table class="table align-items-center mb-0">
+            <thead>
+                <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Day</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hours worked</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data as |dayProgress i|}}
+                <tr>
+                    {{!-- Day --}}
+                    <td class="align-middle  text-sm">
+                        <p class="text-xs text-secondary mb-0">{{presentTime dayProgress.day}}</p>
+                    </td>
+
+                    {{!-- Day --}}
+                    <td class="align-middle  text-sm">
+                        <p class="text-xs text-secondary mb-0">{{calculateHours dayProgress.hoursWorked}}</p>
+                    </td>
+                </tr>
+                
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
