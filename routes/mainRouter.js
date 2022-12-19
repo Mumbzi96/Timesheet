@@ -27,7 +27,7 @@ dotenv.config({
 
 mainRouter.get("/", (req, res, next) => {
 	DailyProgress.find().then((data) => {
-		res.send(data);
+		res.render("main/list", { data });
 	});
 });
 
@@ -42,24 +42,27 @@ mainRouter.get(["/add"], (req, res, next) => {
 });
 
 mainRouter.post("/add", async (req, res, next) => {
-
 	// Setting up object
 	let newData = {};
 
 	// Setting up today's date
-	newData.day = dateToday = new Date().setHours(0, 0, 0, 0);
+	newData.day = moment(); //year, month day, time, gmt+2
 
 	// Setup new data
 	if (req.body.from && req.body.to) {
 		// Setup from
-		let from = new Date();
+		let from = moment();
+		req.body.from = Number(req.body.from);
 		if (req.body.fromAMPM == "PM") req.body.from += 12;
-		from.setHours(req.body.from, 0, 0, 0);
+		from.hour(req.body.from);
+		from.minute(0);
 
 		// Setup to
-		let to = new Date();
+		let to = moment();
+		req.body.to = Number(req.body.to);
 		if (req.body.toAMPM == "PM") req.body.to += 12;
-		to.setHours(req.body.to, 0, 0, 0);
+		to.hours(req.body.to);
+		to.minute(0);
 
 		// Setting time in object
 		newData.hoursWorked = [];
