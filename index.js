@@ -26,7 +26,6 @@ dotenv.config({
 	path: "./config/config.env", // Specifies dotenv
 });
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
-console.log(process.env.ENV_TEST)
 
 //handlebars
 app.engine("handlebars", hbs.engine);
