@@ -54,8 +54,8 @@ mainRouter.post("/add", async (req, res, next) => {
 	let newData = {};
 
 	// Setting up today's date
-	newData.day = moment(); //year, month day, time, gmt+2
-
+	newData.day = moment(new Date().setHours(0,0,0,0)); //year, month day, time, gmt+2
+	
 	// Setup new data
 	if (req.body.from && req.body.to) {
 		// Setup from
@@ -85,7 +85,7 @@ mainRouter.post("/add", async (req, res, next) => {
 	// Find or add today's date
 	findAddOrUpdate(newData)
 		.then(() => {
-			res.redirect("/add");
+			res.redirect("/");
 		})
 		.catch((err) => {
 			next(err);
