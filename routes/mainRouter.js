@@ -27,7 +27,11 @@ dotenv.config({
 
 mainRouter.get("/", (req, res, next) => {
 	DailyProgress.find().then((data) => {
-		res.render("main/list", { data });
+		res.render("main/list", {
+			data,
+			flyingIcon: "fa-solid fa-plus",
+			pageToFlyTo: "/add",
+		});
 	});
 });
 
@@ -38,7 +42,11 @@ mainRouter.get(["/add"], (req, res, next) => {
 	);
 
 	// Render
-	res.render("main/add", { dateToday });
+	res.render("main/add", {
+		dateToday,
+		flyingIcon: "fa-solid fa-list",
+		pageToFlyTo: "/",
+	});
 });
 
 mainRouter.post("/add", async (req, res, next) => {
