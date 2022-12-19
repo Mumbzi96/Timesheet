@@ -35,7 +35,7 @@ app.set("views", "./views");
 
 // Database
 mongoose.set('strictQuery', false)
-mongoose.connect(process.env.MONGO_LOCAL_URL, {
+mongoose.connect(process.env.MONGO_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
