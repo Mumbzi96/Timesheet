@@ -5,12 +5,15 @@ const express = require("express");
 const mainRouter = express.Router();
 const dotenv = require("dotenv");
 const moment = require("moment");
+const bcrypt = require("bcrypt");
 
 // Database
 const DailyProgress = require("../database/dailyProgress");
+const User = require("../database/schemas-models/usersModel");
 
 // Helpers
 const { findAddOrUpdate } = require("./helpers.js");
+const { checkUsers } = require("../database/helpers/usersHelper");
 
 // ====================================
 //             Configuration
@@ -21,11 +24,22 @@ dotenv.config({
 	path: "./config/config.env", // Specifies dotenv
 });
 
+// Check if any users exist
+checkUsers();
+
+// ====================================
+//             Middleware
+// ====================================
+let IsLoggedIn = (req, res, next) => {
+	if (req.session.isLoggedIn) next();
+	else res.redirect("/login");
+};
+
 //========================
-//          Main
+//          View
 //========================
 
-mainRouter.get("/", (req, res, next) => {
+mainRouter.get("/", IsLoggedIn, (req, res, next) => {
 	DailyProgress.find().then((data) => {
 		res.render("main/list", {
 			data,
@@ -35,7 +49,59 @@ mainRouter.get("/", (req, res, next) => {
 	});
 });
 
-mainRouter.get(["/add"], (req, res, next) => {
+//========================
+//          Login
+//========================
+
+mainRouter.get("/login", (req, res, next) => {
+	DailyProgress.find().then((data) => {
+		res.render("main/other/login", {
+			layout: "login",
+		});
+	});
+});
+
+mainRouter.post("/login", async (req, res, next) => {
+	// Get data submitted from form
+	let _username = req.body.username;
+	let _password = req.body.password;
+	// Find user in database
+	let userDB = await User.findOne({ username: _username }).exec();
+
+	// Check password of username exists
+	if (userDB) {
+		bcrypt
+			.compare(_password, userDB.password)
+			.then((isCorrect) => {
+				// Check password
+				if (isCorrect) {
+					req.session.isLoggedIn = true;
+					req.session.user = userDB;
+					res.redirect("/");
+				} else {
+					console.log("wrong");
+					res.render("main/other/login", {
+						err: "Username and/or password are incorrect",
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+				next(err);
+			});
+	}
+});
+
+mainRouter.get("/logout", (req, res, next) => {
+	req.session.destroy();
+	res.redirect("/login");
+});
+
+//========================
+//          Add
+//========================
+
+mainRouter.get(["/add"], IsLoggedIn, (req, res, next) => {
 	// Setting up today's date
 	dateToday = moment(new Date().setHours(8, 0, 0, 0)).format(
 		"dddd, MMMM Do YYYY"
@@ -49,13 +115,14 @@ mainRouter.get(["/add"], (req, res, next) => {
 	});
 });
 
-mainRouter.post("/add", async (req, res, next) => {
+// used for tasks and time
+mainRouter.post("/add", IsLoggedIn, async (req, res, next) => {
 	// Setting up object
 	let newData = {};
 
 	// Setting up today's date
-	newData.day = moment(new Date().setHours(0,0,0,0)); //year, month day, time, gmt+2
-	
+	newData.day = moment(new Date().setHours(0, 0, 0, 0)); //year, month day, time, gmt+2
+
 	// Setup new data
 	if (req.body.from && req.body.to) {
 		// Setup from
@@ -90,11 +157,6 @@ mainRouter.post("/add", async (req, res, next) => {
 		.catch((err) => {
 			next(err);
 		});
-});
-
-mainRouter.post("/add/tasks", async (req, res, next) => {
-	// Setting up today's date
-	let dateToday = new Date().setHours(0, 0, 0, 0);
 });
 
 //========================
