@@ -128,6 +128,7 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 		// Setup from
 		let from = moment();
 		req.body.from = Number(req.body.from);
+		if (req.body.fromAMPM == "AM" && req.body.from == 12) req.body.from = 0;
 		if (req.body.fromAMPM == "PM" && req.body.from != 12) req.body.from += 12;
 		from.hour(req.body.from);
 		from.minute(0);
@@ -136,6 +137,7 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 		// Setup to
 		let to = moment();
 		req.body.to = Number(req.body.to);
+		if (req.body.toAMPM == "AM" && req.body.to == 12) req.body.to = 0;
 		if (req.body.toAMPM == "PM" && req.body.to != 12) req.body.to += 12;
 		to.hours(req.body.to);
 		to.minute(0);
