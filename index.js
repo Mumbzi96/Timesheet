@@ -7,6 +7,7 @@ const moment = require("moment");
 const path = require("path");
 let mongoose = require("mongoose");
 const session = require('express-session')
+const MongoStore = require("connect-mongo");
 
 // Routes
 const testRouter = require("./routes/testRouter");
@@ -32,7 +33,8 @@ app.use(session({
     secret: process.env.SESSION_PASSWORD,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 32400000 }// 32,400,000 is 9 hours in milliseconds}
+    cookie: { maxAge: 32400000 },// 32,400,000 is 9 hours in milliseconds}
+	store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
   }));
 
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
