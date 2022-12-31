@@ -125,6 +125,7 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 
 	// Setup new data
 	if (req.body.from && req.body.to) {
+
 		// Setup from
 		let from = moment();
 		req.body.from = Number(req.body.from);
@@ -144,8 +145,10 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 		to.second(0);
 
 		// Setting time in object
-		newData.hoursWorked = [];
-		newData.hoursWorked.push({ from, to });
+		if (from.isBefore(to)) {
+			newData.hoursWorked = [];
+			newData.hoursWorked.push({ from, to });
+		} else return next(new Error(`FROM needs to be before TO... bruv`))
 	}
 
 	// Setup tasks
