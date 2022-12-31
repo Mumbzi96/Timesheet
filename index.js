@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const moment = require("moment");
 const path = require("path");
 let mongoose = require("mongoose");
+const session = require('express-session')
 
 // Routes
 const testRouter = require("./routes/testRouter");
@@ -25,6 +26,15 @@ const app = express();
 dotenv.config({
 	path: "./config/config.env", // Specifies dotenv
 });
+
+// session
+app.use(session({
+    secret: process.env.SESSION_PASSWORD,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 32400000 }// 32,400,000 is 9 hours in milliseconds}
+  }));
+
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
 
 //handlebars
