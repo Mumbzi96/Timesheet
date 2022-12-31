@@ -30,7 +30,7 @@ checkUsers();
 // ====================================
 //             Middleware
 // ====================================
-let IsLoggedIn = (req, res, next) => {
+let isLoggedIn = (req, res, next) => {
 	if (req.session.isLoggedIn) next();
 	else res.redirect("/login");
 };
@@ -39,7 +39,7 @@ let IsLoggedIn = (req, res, next) => {
 //          View
 //========================
 
-mainRouter.get("/", IsLoggedIn, (req, res, next) => {
+mainRouter.get("/", isLoggedIn, (req, res, next) => {
 	DailyProgress.find().then((data) => {
 		res.render("main/list", {
 			data,
@@ -101,7 +101,7 @@ mainRouter.get("/logout", (req, res, next) => {
 //          Add
 //========================
 
-mainRouter.get(["/add"], IsLoggedIn, (req, res, next) => {
+mainRouter.get(["/add"], isLoggedIn, (req, res, next) => {
 	// Setting up today's date
 	dateToday = moment(new Date().setHours(8, 0, 0, 0)).format(
 		"dddd, MMMM Do YYYY"
@@ -116,7 +116,7 @@ mainRouter.get(["/add"], IsLoggedIn, (req, res, next) => {
 });
 
 // used for tasks and time
-mainRouter.post("/add", IsLoggedIn, async (req, res, next) => {
+mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 	// Setting up object
 	let newData = {};
 
@@ -128,16 +128,18 @@ mainRouter.post("/add", IsLoggedIn, async (req, res, next) => {
 		// Setup from
 		let from = moment();
 		req.body.from = Number(req.body.from);
-		if (req.body.fromAMPM == "PM") req.body.from += 12;
+		if (req.body.fromAMPM == "PM" && req.body.from != 12) req.body.from += 12;
 		from.hour(req.body.from);
 		from.minute(0);
+		from.second(0);
 
 		// Setup to
 		let to = moment();
 		req.body.to = Number(req.body.to);
-		if (req.body.toAMPM == "PM") req.body.to += 12;
+		if (req.body.toAMPM == "PM" && req.body.to != 12) req.body.to += 12;
 		to.hours(req.body.to);
 		to.minute(0);
+		to.second(0);
 
 		// Setting time in object
 		newData.hoursWorked = [];
