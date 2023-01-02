@@ -4,9 +4,14 @@
             <div class="form-group">
                 {{!-- From --}}
                 <div class="row">
-                    <div class="col-md-4">
-                        <label class="form-control-label">From</label>
+                    <div class="col-md-2">
+                        <label class="form-control-label">From Hour</label>
                         <input required class="form-control" type="number" name="from" id="from" min="1" max="12">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-control-label"> From Minute</label>
+                        <input required class="form-control" type="number" name="fromMin" id="fromMin" min="0" max="59">
                     </div>
 
                     <div class="col-md-2">
@@ -18,12 +23,18 @@
                             <option value="PM">PM</option>
                         </select>
                     </div>
+                    <br>
 
                     {{!-- To --}}
                     <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-control-label">To</label>
+                        <div class="col-md-2">
+                            <label class="form-control-label">To Hour</label>
                             <input required class="form-control" type="number" name="to" id="to" min="1" max="12">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-control-label">To Minute</label>
+                            <input required class="form-control" type="number" name="toMin" id="toMin" min="0" max="59">
                         </div>
 
                         <div class="col-md-2">

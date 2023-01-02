@@ -125,30 +125,31 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 
 	// Setup new data
 	if (req.body.from && req.body.to) {
-
 		// Setup from
 		let from = moment();
 		req.body.from = Number(req.body.from);
+		req.body.fromMin = Number(req.body.fromMin);
 		if (req.body.fromAMPM == "AM" && req.body.from == 12) req.body.from = 0;
 		if (req.body.fromAMPM == "PM" && req.body.from != 12) req.body.from += 12;
 		from.hour(req.body.from);
-		from.minute(0);
+		from.minute(req.body.fromMin);
 		from.second(0);
 
 		// Setup to
 		let to = moment();
 		req.body.to = Number(req.body.to);
+		req.body.toMin = Number(req.body.toMin);
 		if (req.body.toAMPM == "AM" && req.body.to == 12) req.body.to = 0;
 		if (req.body.toAMPM == "PM" && req.body.to != 12) req.body.to += 12;
 		to.hours(req.body.to);
-		to.minute(0);
+		to.minute(req.body.toMin);
 		to.second(0);
 
 		// Setting time in object
 		if (from.isBefore(to)) {
 			newData.hoursWorked = [];
 			newData.hoursWorked.push({ from, to });
-		} else return next(new Error(`FROM needs to be before TO... bruv`))
+		} else return next(new Error(`FROM needs to be before TO... bruv`));
 	}
 
 	// Setup tasks
