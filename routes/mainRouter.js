@@ -157,6 +157,12 @@ mainRouter.post("/add", isLoggedIn, async (req, res, next) => {
 		newData.tasksDone = [req.body.tasksDone];
 	}
 
+	// Saving projects worked on
+	if (req.body.projectsWorkedOn) {
+		newData.projectsWorkedOn = [];
+		newData.projectsWorkedOn.push(req.body.projectsWorkedOn);
+	}
+
 	// Find or add today's date
 	findAddOrUpdate(newData)
 		.then(() => {

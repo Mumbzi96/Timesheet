@@ -79,6 +79,11 @@ let updateProgress = async (existingData, newData) => {
 			existingData.tasksDone = existingData.tasksDone.concat(newData.tasksDone);
 		}
 
+		// Saving project
+		if (newData.projectsWorkedOn && newData.projectsWorkedOn.length != 0) {
+			existingData.projectsWorkedOn = existingData.projectsWorkedOn.concat(newData.projectsWorkedOn);
+		}
+
 		existingData
 			.save()
 			.then(() => {
