@@ -7,7 +7,8 @@ const moment = require("moment");
 const path = require("path");
 let mongoose = require("mongoose");
 const session = require('express-session')
-const MongoStore = require("connect-mongo");
+// const MongoStore = require("connect-mongo");
+const {MongoClient} = require('mongodb');
 
 // Routes
 const testRouter = require("./routes/testRouter");
@@ -34,7 +35,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 32400000 },// 32,400,000 is 9 hours in milliseconds}
-	store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+	// store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
   }));
 
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
@@ -45,11 +46,11 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 // Database
-mongoose.set('strictQuery', false)
-mongoose.connect(process.env.MONGO_URL, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-});
+// mongoose.set('strictQuery', false)
+mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('connect')});
+// mongoose.connect('mongodb://127.0.0.1:27017/myapp');
+// mongoose.connect('mongodb://127.0.0.1:27017/myapp');
+// const MyModel = mongoose.model('Test', new mongoose.Schema({ name: String }));
 
 // ====================================
 //             Middleware
