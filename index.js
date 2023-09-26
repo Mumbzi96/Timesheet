@@ -6,12 +6,13 @@ const dotenv = require("dotenv");
 const moment = require("moment");
 const path = require("path");
 let mongoose = require("mongoose");
-const session = require('express-session')
+const session = require("express-session");
 // const MongoStore = require("connect-mongo");
-const {MongoClient} = require('mongodb');
+const { MongoClient } = require("mongodb");
 
 // Routes
 const testRouter = require("./routes/testRouter");
+const timesheetsRouter = require("./routes/timesheetsRouter");
 const mainRouter = require("./routes/mainRouter");
 
 // Project-made Modules
@@ -30,13 +31,15 @@ dotenv.config({
 });
 
 // session
-app.use(session({
-    secret: process.env.SESSION_PASSWORD,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 32400000 },// 32,400,000 is 9 hours in milliseconds}
-	// store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
-  }));
+app.use(
+	session({
+		secret: process.env.SESSION_PASSWORD,
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: 32400000 }, // 32,400,000 is 9 hours in milliseconds}
+		// store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+	})
+);
 
 let PORT = process.env.PORT || 3000; // This uses the port from the configuration file or 3000 in case the file wasn't found
 
@@ -47,10 +50,9 @@ app.set("views", "./views");
 
 // Database
 // mongoose.set('strictQuery', false)
-mongoose.connect(process.env.MONGO_URL).then(()=>{console.log('connect')});
-// mongoose.connect('mongodb://127.0.0.1:27017/myapp');
-// mongoose.connect('mongodb://127.0.0.1:27017/myapp');
-// const MyModel = mongoose.model('Test', new mongoose.Schema({ name: String }));
+mongoose.connect(process.env.MONGO_URL).then(() => {
+	console.log("connect");
+});
 
 // ====================================
 //             Middleware
@@ -78,11 +80,23 @@ const reqLog = (req, res, next) => {
 // Static
 app.use(express.static(path.join(__dirname, "/public")));
 
+let isLoggedIn = (req, res, next) => {
+	if (req.session.isLoggedIn) next();
+	else res.redirect("/login");
+};
+
+// ====================================
+//             Routes
+// ====================================
+
 // Seperate Routes
 app.use("/test", testRouter);
 app.use("/", mainRouter);
+app.use("/timesheets", isLoggedIn, timesheetsRouter);
 
-// Error handling
+// ====================================
+//             Error Handling
+// ====================================
 app.use(async (err, req, res, next) => {
 	console.log(err);
 	res.render("main/other/errorHandler", {
