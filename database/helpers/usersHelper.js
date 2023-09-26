@@ -3,7 +3,7 @@
 // ====================================
 const { default: mongoose } = require("mongoose");
 const User = require("../schemas-models/usersModel");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 
 //========================

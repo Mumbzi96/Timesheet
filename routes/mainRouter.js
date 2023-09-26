@@ -5,7 +5,7 @@ const express = require("express");
 const mainRouter = express.Router();
 const dotenv = require("dotenv");
 const moment = require("moment");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 // Database
 const DailyProgress = require("../database/dailyProgress");
