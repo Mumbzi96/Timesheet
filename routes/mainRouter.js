@@ -31,11 +31,13 @@ checkUsers();
 //========================
 
 mainRouter.get(["/", "/login"], (req, res, next) => {
-	// DailyProgress.find().then((data) => {
+	//
+	if (req.session.isLoggedIn) return res.redirect("/timesheets");
+	
+	//
 	res.render("main/other/login", {
 		layout: "login",
 	});
-	// });
 });
 
 mainRouter.post("/login", async (req, res, next) => {
