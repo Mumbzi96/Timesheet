@@ -7,7 +7,7 @@ const moment = require("moment");
 const path = require("path");
 let mongoose = require("mongoose");
 const session = require("express-session");
-// const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo");
 const { MongoClient } = require("mongodb");
 
 // Routes
@@ -37,7 +37,7 @@ app.use(
 		resave: false,
 		saveUninitialized: true,
 		cookie: { maxAge: 32400000 }, // 32,400,000 is 9 hours in milliseconds}
-		// store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
+		store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
 	})
 );
 
