@@ -1,29 +1,28 @@
-<div class="card">
-    <div class="table-responsive">
-        <table class="table align-items-center mb-0">
-            <thead>
-                <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Day</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hours worked</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each data as |dayProgress i|}}
-                <tr>
-                    {{!-- Day --}}
-                    <td class="align-middle  text-sm">
-                        <p class="text-xs text-secondary mb-0">{{presentTime dayProgress.day}}</p>
-                    </td>
+<div class="container">
+    <ul class="transparent-bg list-group p-3">
+        {{#each data as |dayProgress i|}}
+        <li class="transparent-bg list-group-item">
 
-                    {{!-- Day --}}
-                    <td class="align-middle  text-sm">
-                        <p class="text-xs text-secondary mb-0">{{calculateHours dayProgress.hoursWorked}}</p>
-                    </td>
-                </tr>
-                
-                {{/each}}
-            </tbody>
-        </table>
-    </div>
+            {{!-- fullname & title --}}
+            <h6>{{presentTime dayProgress.day false}} - <span style="color:black" class="btn btn-secondary">{{calculateHours dayProgress.hoursWorked}} hour/s worked</span></h6>
+            <ul>
+            {{#each dayProgress.hoursWorked as |hoursWorked i|}}
+            <li>{{presentTime hoursWorked.from true}} to {{presentTime hoursWorked.to true}}</li>
+            {{/each}}
+            </ul>
+
+            {{!-- button example mr --}}
+            {{!-- <a title="History" class=" customButton btn btn-light" href="/users/{{user._id}}">
+                <img src="/images/icons/history.png" class="iconImage">
+            </a> --}}
+        </li>
+
+        {{/each}}
+    </ul>
 </div>
-{{> flyingButton}}
+
+
+{{> floatingButtons/logout}}
+{{> floatingButtons/list}}
+
+{{> css/timesheetsList}}
