@@ -15,7 +15,7 @@ const dailyProgressSchema = new mongoose.Schema({
 			to: Date,
 			projectWorkedOn: {
 				type: mongoose.Schema.Types.ObjectId,
-				ref: "Projects",
+				ref: "Project",
 			},
 		},
 	],

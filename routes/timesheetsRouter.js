@@ -18,13 +18,15 @@ const Project = require("../database/schemas-models/projects.js");
 //          View
 //========================
 
-timesheetsRouter.get("/", (req, res, next) => {
-	DailyProgress.find().then((data) => {
-		res.render("main/list", {
-			data,
-			flyingIcon: "fa-solid fa-plus",
-			pageToFlyTo: "/timesheets/add",
-		});
+timesheetsRouter.get("/", async (req, res, next) => {
+	// Get daily progress
+	let data = await DailyProgress.find({}).populate("hoursWorked.projectWorkedOn").exec();
+
+	// Render
+	res.render("main/list", {
+		data,
+		flyingIcon: "fa-solid fa-plus",
+		pageToFlyTo: "/timesheets/add",
 	});
 });
 
@@ -92,7 +94,7 @@ timesheetsRouter.post("/add", async (req, res, next) => {
 	if (req.body.projectWorkedOn) {
 		newData.hoursWorked[0].projectWorkedOn = [req.body.projectWorkedOn];
 	}
-	
+
 	// Find or add today's date
 	findAddOrUpdate(newData)
 		.then(() => {

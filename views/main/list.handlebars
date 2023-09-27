@@ -4,10 +4,10 @@
         <li class="transparent-bg list-group-item">
 
             {{!-- fullname & title --}}
-            <h6>{{presentTime dayProgress.day false}} - <span style="color:black" class="btn btn-secondary">{{calculateHours dayProgress.hoursWorked}} hour/s worked</span></h6>
+            <h6>{{presentTime dayProgress.day false}} - <span style="color:white" class="btn btn-secondary">{{calculateHours dayProgress.hoursWorked}} hour/s worked</span></h6>
             <ul>
             {{#each dayProgress.hoursWorked as |hoursWorked i|}}
-            <li>{{presentTime hoursWorked.from true}} to {{presentTime hoursWorked.to true}}</li>
+            <li>{{presentTime hoursWorked.from true}} to {{presentTime hoursWorked.to true}} - <b>{{hoursWorked.projectWorkedOn.name}}</b></li>
             {{/each}}
             </ul>
 
