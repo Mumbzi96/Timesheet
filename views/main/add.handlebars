@@ -3,7 +3,7 @@
         <div class="card-body ">
             <form method="POST" action="/timesheets/add/">
                 <div class="form-group">
-                    {{!-- Row --}}
+                    {{!-- From --}}
                     <div class="row">
                         {{!-- from hour --}}
                         <div class="col-md-2">
@@ -13,8 +13,7 @@
                         {{!-- from minute --}}
                         <div class="col-md-2">
                             <label class="form-control-label">Minute</label>
-                            <input required class="form-control" type="number" name="fromMin" id="fromMin" min="0"
-                                max="59">
+                            <input class="form-control" type="number" name="fromMin" id="fromMin" min="0" max="59">
                         </div>
                         {{!-- from am/pm --}}
                         <div class="col-md-2">
@@ -31,16 +30,19 @@
 
                     {{!-- To --}}
                     <div class="row">
+                        {{!-- To hour --}}
                         <div class="col-md-2">
                             <label class="form-control-label">To Hour</label>
                             <input required class="form-control" type="number" name="to" id="to" min="1" max="12">
                         </div>
 
+                        {{!-- To minute --}}
                         <div class="col-md-2">
                             <label class="form-control-label">To Minute</label>
-                            <input required class="form-control" type="number" name="toMin" id="toMin" min="0" max="59">
+                            <input class="form-control" type="number" name="toMin" id="toMin" min="0" max="59">
                         </div>
 
+                        {{!-- to am/pm --}}
                         <div class="col-md-2">
                             <label for="toAMPM" class="form-control-label">AM/PM</label>
                             <select required class="form-select" id="toAMPM" name="toAMPM"
