@@ -30,7 +30,7 @@ hbs = handlebars.create({
 					1000; //this gets time in seconds
 			}
 
-			return count / 3600;
+			return (count / 3600).toFixed(1);
 		},
 		presentTime: function (date, getTime) {
 			if (!date) return;
