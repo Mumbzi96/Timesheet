@@ -9,9 +9,16 @@ let mongoose = require("mongoose");
 //========================
 const dailyProgressSchema = new mongoose.Schema({
 	day: Date,
-	hoursWorked: [{ from: Date, to: Date }],
-	tasksDone: [String],
-	projectsWorkedOn: [String],
+	hoursWorked: [
+		{
+			from: Date,
+			to: Date,
+			projectWorkedOn: {
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "Projects",
+			},
+		},
+	],
 });
 
 const DailyProgress = mongoose.model("DailyProgress", dailyProgressSchema);

@@ -14,6 +14,7 @@ const User = require("../database/schemas-models/usersModel");
 // Helpers
 const { findAddOrUpdate } = require("./helpers.js");
 const { checkUsers } = require("../database/helpers/usersHelper");
+const { checkProjects } = require("../database/helpers/projectsHelper");
 
 // ====================================
 //             Configuration
@@ -26,6 +27,8 @@ dotenv.config({
 
 // Check if any users exist
 checkUsers();
+checkProjects();
+
 //========================
 //          Login
 //========================
@@ -33,7 +36,7 @@ checkUsers();
 mainRouter.get(["/", "/login"], (req, res, next) => {
 	//
 	if (req.session.isLoggedIn) return res.redirect("/timesheets");
-	
+
 	//
 	res.render("main/other/login", {
 		layout: "login",

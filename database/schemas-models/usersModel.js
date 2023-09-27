@@ -1,5 +1,8 @@
 const { default: mongoose, Schema } = require("mongoose");
 
+//========================
+//          Schema
+//========================
 const userSchema = mongoose.Schema({
 	fullName: {
 		type: String,
@@ -19,6 +22,10 @@ const userSchema = mongoose.Schema({
 		required: true,
 	},
 });
+
+//========================
+//          Model
+//========================
 
 const User = mongoose.model("User", userSchema);
 
