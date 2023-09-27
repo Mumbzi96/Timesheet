@@ -52,8 +52,21 @@
                         </div>
                     </div>
 
-                    {{!-- Submit --}}
-                    <br><button type="submit" class="btn btn-secondary">Add</button>
+                    {{!-- Projects --}}
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <select name="projectWorkedOn" class="form-select" aria-label="Default select example">
+                                {{#each projects as |project i |}}
+                                <option value="{{project._id}}">{{project.name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{!-- Submit --}}
+                <br><button type="submit" class="btn btn-secondary">Add</button>
             </form>
         </div>
     </div>

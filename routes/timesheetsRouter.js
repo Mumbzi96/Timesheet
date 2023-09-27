@@ -12,6 +12,7 @@ const { findAddOrUpdate } = require("./helpers.js");
 
 // Database
 const DailyProgress = require("../database/dailyProgress");
+const Project = require("../database/schemas-models/projects.js");
 
 //========================
 //          View
@@ -37,12 +38,17 @@ timesheetsRouter.get(["/add"], (req, res, next) => {
 		"dddd, MMMM Do YYYY"
 	);
 
-	// Render
-	res.render("main/add", {
-		dateToday,
-		flyingIcon: "fa-solid fa-list",
-		pageToFlyTo: "/",
+	// Get projects
+	Project.find({}).then((projects) => {
+		res.render("main/add", {
+			dateToday,
+			projects,
+			flyingIcon: "fa-solid fa-list",
+			pageToFlyTo: "/",
+		});
 	});
+
+	// Render
 });
 
 // used for tasks and time
@@ -82,17 +88,11 @@ timesheetsRouter.post("/add", async (req, res, next) => {
 		} else return next(new Error(`FROM needs to be before TO... bruv`));
 	}
 
-	// Setup tasks
-	if (req.body.tasksDone) {
-		newData.tasksDone = [req.body.tasksDone];
+	// Setup project worked on
+	if (req.body.projectWorkedOn) {
+		newData.hoursWorked[0].projectWorkedOn = [req.body.projectWorkedOn];
 	}
-
-	// Saving projects worked on
-	if (req.body.projectsWorkedOn) {
-		newData.projectsWorkedOn = [];
-		newData.projectsWorkedOn.push(req.body.projectsWorkedOn);
-	}
-
+	
 	// Find or add today's date
 	findAddOrUpdate(newData)
 		.then(() => {
