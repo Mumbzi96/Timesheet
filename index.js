@@ -72,14 +72,14 @@ app.use((req, res, next) => {
 	next();
 });
 
-//  Middleware
-const reqLog = (req, res, next) => {
-	console.log(req);
-};
-
 // Static
 app.use(express.static(path.join(__dirname, "/public")));
+app.use(
+	"/css",
+	express.static(path.join(__dirname, "/public/bootstrap/dist/css"))
+);
 
+// Login middleware
 let isLoggedIn = (req, res, next) => {
 	if (req.session.isLoggedIn) next();
 	else res.redirect("/login");
