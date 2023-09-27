@@ -11,9 +11,20 @@
 	<!-- Font Awesome Icons -->
 	<script src='https://kit.fontawesome.com/d40b60d37f.js' crossorigin='anonymous'></script>
 
+	{{!-- cover image css --}}
+	<style>
+        /* Set the background image and make it cover the entire viewport */
+        body {
+            background-image: url('/images/bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Optional: This makes the background image fixed as the page scrolls */
+        }
+    </style>
+
 </head>
 
-<body style="background-image:url('/images/bg.jpg')" onload=''>
+<body onload=''>
 	{{!-- {{> layouts/navbar}} --}}
 	
 	{{{body}}}

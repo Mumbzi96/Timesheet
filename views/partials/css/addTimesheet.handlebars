@@ -1,0 +1,91 @@
+<style>
+    /* Hide the up and down arrows for number input */
+    input[type="number"] {
+        -moz-appearance: textfield;
+        /* Firefox */
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        /* Optional: You can adjust the margin to control spacing */
+    }
+
+    .transparent-bg {
+        background-color: rgba(255, 255, 255, 0.5);
+        /* Adjust the alpha value (0.5 in this example) for the desired level of transparency */
+    }
+
+    /* Remove the default border and focus outline for form inputs */
+    .form-control {
+        border: none;
+        border-radius: 0;
+        /* Optionally, remove any border-radius */
+        border-bottom: 1px solid #000;
+        /* Add a border only to the bottom */
+        padding: 5px 0;
+        /* Add some padding to create space between the input and the underline */
+        background-color: transparent;
+        /* Make the background transparent */
+        transition: background-color 0.3s;
+        /* Add a smooth transition for background color */
+        outline: none;
+        /* Remove the default focus outline */
+    }
+
+    /* Style the input when it's focused (optional) */
+    .form-control:focus,
+    .form-control:active {
+        border-bottom: 2px solid #A92036;
+        /* Change the underline color or style on focus */
+        background-color: transparent;
+        /* Make the background transparent on focus or when active */
+    }
+
+    /* Style the form */
+    .form-group {
+        margin-bottom: 20px;
+        /* Add some margin between form groups (optional) */
+    }
+
+    /* Style form labels (optional) */
+    .form-label {
+        color: #333;
+        /* Change label text color */
+    }
+
+    /* Hide the default checkbox */
+    /* Style the default checkbox */
+    input[type="checkbox"] {
+        /* Make the checkbox itself transparent */
+        background-color: transparent;
+    }
+
+    /* Style the custom checkbox when it's not checked */
+    input[type="checkbox"] {
+        background-color: #ccc;
+        /* Change the background color */
+        padding: 5px;
+        /* Add some padding for spacing */
+        border-radius: 5px;
+        /* Round the corners */
+        display: inline-block;
+        cursor: pointer;
+        /* Show pointer cursor on hover */
+    }
+
+    /* Style the custom checkbox when it's checked */
+    input[type="checkbox"]:checked {
+        background-color: #A92036;
+        /* Change the background color when checked */
+        color: #fff;
+        /* Change the text color when checked */
+    }
+
+    input:focus {
+        outline: none;
+        /* Remove the default blue outline */
+        /* Add your custom border style */
+    }
+</style>

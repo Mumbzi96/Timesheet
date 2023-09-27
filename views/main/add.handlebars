@@ -1,15 +1,65 @@
-<div class="card m-3">
-    <div class="card-body text-center">
-        <h3>Timesheet of today</h3> <h5>{{dateToday}}</h5> 
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card transparent-bg " style=" width: 40rem; margin: 0 auto;">
+        <div class="card-body ">
+            <form method="POST" action="/timesheets/add/">
+                <div class="form-group">
+                    {{!-- Row --}}
+                    <div class="row">
+                        {{!-- from hour --}}
+                        <div class="col-md-2">
+                            <label class="form-control-label">Hour</label>
+                            <input required class="form-control" type="number" name="from" id="from" min="1" max="12">
+                        </div>
+                        {{!-- from minute --}}
+                        <div class="col-md-2">
+                            <label class="form-control-label">Minute</label>
+                            <input required class="form-control" type="number" name="fromMin" id="fromMin" min="0"
+                                max="59">
+                        </div>
+                        {{!-- from am/pm --}}
+                        <div class="col-md-2">
+                            <label for="fromAMPM" class="form-control-label">AM/PM</label>
+                            <select required class="form-select" id="fromAMPM" name="fromAMPM"
+                                aria-label="Default select example">
+                                <option value=""></option>
+                                <option value="AM">AM</option>
+                                <option selected value="PM">PM</option>
+                            </select>
+                        </div>
+                        <br>
+                    </div>
+
+                    {{!-- To --}}
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-control-label">To Hour</label>
+                            <input required class="form-control" type="number" name="to" id="to" min="1" max="12">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-control-label">To Minute</label>
+                            <input required class="form-control" type="number" name="toMin" id="toMin" min="0" max="59">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="toAMPM" class="form-control-label">AM/PM</label>
+                            <select required class="form-select" id="toAMPM" name="toAMPM"
+                                aria-label="Default select example">
+                                <option value=""></option>
+                                <option value="AM">AM</option>
+                                <option selected value="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {{!-- Submit --}}
+                    <br><button type="submit" class="btn btn-secondary">Add</button>
+            </form>
+        </div>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body">
-        {{> addHours}}
-        {{> addTasks}}
-        {{> addProjects}}
-    </div>
-</div>
 
-{{> flyingButton}}
+{{> floatingButtons/logout}}
+{{> floatingButtons/list}}
+{{> css/addTimesheet}}

@@ -8,9 +8,20 @@
 	<link rel='stylesheet' href='/css/bootstrap.css' />
 	<title>Checkin System</title>
 
+	{{!-- cover image css --}}
+	<style>
+        /* Set the background image and make it cover the entire viewport */
+        body {
+            background-image: url('/images/bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Optional: This makes the background image fixed as the page scrolls */
+        }
+    </style>
+
 </head>
 
-<body style="background-image:url('/images/bg.jpg')" onload=''>
+<body onload=''>
 		{{> layouts/navbar}}
 		{{#if err}}
 		<div class="">
