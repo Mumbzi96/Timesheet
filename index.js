@@ -13,6 +13,7 @@ const { MongoClient } = require("mongodb");
 // Routes
 const testRouter = require("./routes/testRouter");
 const timesheetsRouter = require("./routes/timesheetsRouter");
+const projectsRouter = require("./routes/projectsRouter");
 const mainRouter = require("./routes/mainRouter");
 
 // Project-made Modules
@@ -93,6 +94,7 @@ let isLoggedIn = (req, res, next) => {
 app.use("/test", testRouter);
 app.use("/", mainRouter);
 app.use("/timesheets", isLoggedIn, timesheetsRouter);
+app.use("/projects", isLoggedIn, projectsRouter);
 
 // ====================================
 //             Error Handling

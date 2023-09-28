@@ -1,0 +1,37 @@
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card transparent-bg " style=" width: 40rem; margin: 0 auto;">
+        <div class="card-body ">
+            <form method="POST" action="/projects/add">
+                <div class="form-group">
+                    {{!-- ROW --}}
+                    <div class="row">
+                        {{!-- Name --}}
+                        <div class="col-md-6">
+                            <label class="form-control-label">Name</label>
+                            <input required class="form-control" type="text" name="name">
+                        </div>
+                    </div>
+                    {{!-- Row 2 --}}
+                    <div class="row mt-4">
+                        {{!-- Type --}}
+                        <div class="col-md-6">
+                            <select name="type" class="form-select" aria-label="Default select example">
+                                {{#each types as |type i |}}
+                                <option value="{{type}}">{{type}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Submit --}}
+                <br><button type="submit" class="btn btn-secondary">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{{> floatingButtons/logout}}
+{{> floatingButtons/list}}
+{{> css/addTimesheet}}
