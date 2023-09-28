@@ -79,6 +79,10 @@ app.use(
 	"/css",
 	express.static(path.join(__dirname, "/public/bootstrap/dist/css"))
 );
+app.use(
+	"/js",
+	express.static(path.join(__dirname, "/public/bootstrap/dist/js"))
+);
 
 // Login middleware
 let isLoggedIn = (req, res, next) => {
