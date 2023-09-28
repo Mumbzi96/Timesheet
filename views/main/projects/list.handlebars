@@ -1,0 +1,29 @@
+<div class="container">
+    <ul class="transparent-bg list-group p-3">
+        {{#each projects as |project i|}}
+        <li class="transparent-bg list-group-item">
+
+            {{!-- fullname & title --}}
+            <h6><b>{{project.name}}</b> - <i>{{project.type}}</i> </h6>
+            {{!-- <ul>
+                {{#each dayProgress.hoursWorked as |hoursWorked i|}}
+                <li>{{presentTime hoursWorked.from true}} to {{presentTime hoursWorked.to true}} -
+                    <b>{{hoursWorked.projectWorkedOn.name}}</b></li>
+                {{/each}}
+            </ul> --}}
+
+            {{!-- button example mr --}}
+            {{!-- <a title="History" class=" customButton btn btn-light" href="/users/{{user._id}}">
+                <img src="/images/icons/history.png" class="iconImage">
+            </a> --}}
+        </li>
+
+        {{/each}}
+    </ul>
+</div>
+
+
+{{> floatingButtons/logout}}
+{{> floatingButtons/projects/add}}
+
+{{> css/timesheetsList}}

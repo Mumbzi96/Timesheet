@@ -1,0 +1,41 @@
+<a title="Logout" href="/projects/add" class="floating-button-add "><img src="/images/icons/plus.svg"
+        class="addImage"></a>
+
+<style>
+    .floating-button-add {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 24px;
+        line-height: 1.33;
+        position: fixed;
+        bottom: 70px;
+        right: 10px;
+        z-index: 3;
+        border-radius: 50%;
+        /* Use 50% for a circular shape */
+        border: 1px solid black;
+        /* Add a black border */
+        background-color: transparent;
+        /* Make the background transparent */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Center the content vertically */
+        text-decoration: none;
+        /* Remove underline */
+        color: black;
+        /* Text color */
+
+    }
+
+    .floating-button-add:hover {
+        transform: scale(1.2);
+    }
+
+    .addImage {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+</style>

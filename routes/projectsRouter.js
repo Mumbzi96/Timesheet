@@ -11,6 +11,11 @@ const Project = require("../database/schemas-models/projects");
 //          Main
 //========================
 
+projectsRouter.get("/", async (req, res, next) => {
+	let projects = await Project.find({}).exec();
+	res.render("main/projects/list", { projects });
+});
+
 projectsRouter.get("/add", (req, res, next) => {
 	let types = Project.schema.path("type").enumValues;
 	res.render("main/projects/add", { types });
