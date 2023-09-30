@@ -1,0 +1,69 @@
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5/main.js'></script>
+
+<div class="container">
+    <div id='calendar'></div>
+</div>
+
+<style>
+    .fc-content {
+        max-width: 100%;
+        /* Adjust as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 2px;
+        border: 1px solid #000;
+        /* Add a border around the event content */
+        padding: 5px;
+        /* Add some padding to the event content for spacing */
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Define a function to initialize the calendar with data
+        function initializeCalendar(eventData) {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: eventData,
+                eventContent: function (arg) {
+                    // Customize the event content here
+                    var eventHtml = '<div class="fc-content">' +
+                        '<span class="fc-title">' + arg.event.title + '</span><br>' +
+                        '<span class="fc-time">' +
+                        arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) + ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) +
+                        '</span>' +
+                        '</div>';
+                    return { html: eventHtml };
+                },
+                // Other calendar options...
+            });
+            calendar.render();
+        }
+
+        // Fetch event data from the API
+        const apiUrl = '/timesheets/calendar';
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                initializeCalendar(data); // Initialize the calendar with fetched data
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
+
+
+{{> floatingButtons/logout}}
+{{> floatingButtons/add}}
+
+{{> css/timesheetsList}}
