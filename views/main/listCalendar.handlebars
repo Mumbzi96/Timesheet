@@ -12,11 +12,25 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        border-radius: 2px;
-        border: 1px solid #000;
         /* Add a border around the event content */
         padding: 5px;
         /* Add some padding to the event content for spacing */
+    }
+
+
+    .fc-event {
+        background-color: #686767;
+        color: #000000;
+    }
+
+    .fc-daygrid-day-number {
+        text-decoration: none;
+        color: 000000
+    }
+
+    .fc-col-header-cell-cushion {
+        text-decoration: none;
+        color: #000000;
     }
 </style>
 
@@ -31,7 +45,7 @@
                 eventContent: function (arg) {
                     // Customize the event content here
                     var eventHtml = '<div class="fc-content">' +
-                        '<span class="fc-title">' + arg.event.title + '</span><br>' +
+                        '<span class="fc-title"><b>' + arg.event.title + '</b></span><br>' +
                         '<span class="fc-time">' +
                         arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) + ' - ' + arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) +
                         '</span>' +
