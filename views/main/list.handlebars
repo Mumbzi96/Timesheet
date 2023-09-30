@@ -1,6 +1,6 @@
 <div class="container">
     <ul class="transparent-bg list-group p-3">
-        {{#each data as |dayProgress i|}}
+        {{#each days as |dayProgress i|}}
         <li class="transparent-bg list-group-item">
 
             {{!-- fullname & title --}}
@@ -24,5 +24,6 @@
 
 {{> floatingButtons/logout}}
 {{> floatingButtons/add}}
+{{> floatingButtons/calendar}}
 
 {{> css/timesheetsList}}

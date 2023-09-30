@@ -1,0 +1,41 @@
+<a title="Calendar View" href="/timesheets/calendar" class="floating-button-calendar "><img
+        src="/images/icons/calendar-fill.svg" class="calendarImage"></a>
+
+<style>
+    .floating-button-calendar {
+        width: 50px;
+        height: 50px;
+        padding: 10px 16px;
+        font-size: 24px;
+        line-height: 1.33;
+        position: fixed;
+        bottom: 130px;
+        right: 10px;
+        z-index: 3;
+        border-radius: 50%;
+        /* Use 50% for a circular shape */
+        border: 1px solid black;
+        /* Add a black border */
+        background-color: transparent;
+        /* Make the background transparent */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Center the content vertically */
+        text-decoration: none;
+        /* Remove underline */
+        color: black;
+        /* Text color */
+
+    }
+
+    .floating-button-calendar:hover {
+        transform: scale(1.2);
+    }
+
+    .calendarImage {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+    }
+</style>

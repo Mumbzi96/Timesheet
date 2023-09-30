@@ -18,50 +18,22 @@ const Project = require("../database/schemas-models/projects.js");
 //          View
 //========================
 
-timesheetsRouter.get("/", async (req, res, next) => {
+timesheetsRouter.get(["/", "/calendar"], async (req, res, next) => {
+	// view page can either be list or calendar
+	let viewPage = "main/list"; // by default it's the list
+	if (req.url.includes("calendar")) viewPage = "main/listCalendar";
+
 	// Get daily progress
-	let data = await DailyProgress.find({})
+	let days = await DailyProgress.find({})
 		.populate("hoursWorked.projectWorkedOn")
 		.exec();
 
 	// Render
-	res.render("main/listCalendar", {
-		data,
+	res.render(viewPage, {
+		days,
 		flyingIcon: "fa-solid fa-plus",
 		pageToFlyTo: "/timesheets/add",
 	});
-});
-
-//========================
-//          json
-//========================
-
-timesheetsRouter.get("/calendar", async (req, res, next) => {
-	// Get daily progress
-	let data = await DailyProgress.find({})
-		.populate("hoursWorked.projectWorkedOn")
-		.exec();
-
-	// setup events
-	const events = [];
-
-	// looping each day
-	data.forEach((eventData) => {
-		const dailyEvents = eventData.hoursWorked;
-		// looping every hoursWorked value to add as an event
-		dailyEvents.forEach((dailyEvent) => {
-			const event = {
-				// id: eventData._id,
-				title: dailyEvent.projectWorkedOn.name,
-				start: dailyEvent.from.toISOString(), // Use the "day" field as the start date/time
-				end: dailyEvent.to.toISOString(), // Use the "day" field as the start date/time
-				// Add more properties as needed
-			};
-			events.push(event);
-		});
-	});
-	
-	res.json(events);
 });
 
 //========================

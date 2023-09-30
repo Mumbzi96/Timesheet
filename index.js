@@ -12,6 +12,7 @@ const { MongoClient } = require("mongodb");
 
 // Routes
 const testRouter = require("./routes/testRouter");
+const apiRouter = require("./routes/apiRouter");
 const timesheetsRouter = require("./routes/timesheetsRouter");
 const projectsRouter = require("./routes/projectsRouter");
 const mainRouter = require("./routes/mainRouter");
@@ -96,6 +97,7 @@ let isLoggedIn = (req, res, next) => {
 
 // Seperate Routes
 app.use("/test", testRouter);
+app.use("/api", apiRouter);
 app.use("/", mainRouter);
 app.use("/timesheets", isLoggedIn, timesheetsRouter);
 app.use("/projects", isLoggedIn, projectsRouter);
